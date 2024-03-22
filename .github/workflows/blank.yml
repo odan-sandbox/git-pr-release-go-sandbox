@@ -20,7 +20,7 @@ jobs:
           repository: odanado/git-pr-release-go
           path: git-pr-release-go
       
-      - run: go build git-pr-release-go
+      - run: go build -v ./...
         working-directory: git-pr-release-go
 
       - run: ./git-pr-release-go --help
