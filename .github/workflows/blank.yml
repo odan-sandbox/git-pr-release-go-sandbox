@@ -13,7 +13,9 @@ jobs:
         with:
           app-id: ${{ vars.ODAN_SANDBOX_BOT_APP_ID }}
           private-key: ${{ secrets.ODAN_SANDBOX_BOT_PRIVATE_KEY }}
-          
+      
+      - run: echo ${{ steps.app-token.outputs.github_token }}
+
       - name: Checkout tools repo
         uses: actions/checkout@v4
         with:
@@ -27,4 +29,3 @@ jobs:
         working-directory: git-pr-release-go
         env:
           GITHUB_TOKEN: ${{ steps.app-token.outputs.github_token }}
-          
