@@ -20,6 +20,10 @@ jobs:
           repository: odanado/git-pr-release-go
           path: git-pr-release-go
       
-      - run: go run git-pr-release-go/main.go --help
+      - run: go build git-pr-release-go
+        working-directory: git-pr-release-go
+
+      - run: ./git-pr-release-go --help
+        working-directory: git-pr-release-go
         env:
           GITHUB_TOKEN: ${{ steps.app-token.outputs.github_token }}
