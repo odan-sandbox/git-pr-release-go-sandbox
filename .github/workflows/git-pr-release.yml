@@ -1,0 +1,29 @@
+name: Create release pull request
+on:
+  push:
+    branches:
+      - release/test
+
+jobs:
+  hello-world:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/create-github-app-token@v1
+        id: app-token
+        with:
+          app-id: ${{ vars.ODAN_SANDBOX_BOT_APP_ID }}
+          private-key: ${{ secrets.ODAN_SANDBOX_BOT_PRIVATE_KEY }}
+
+      - name: Checkout tools repo
+        uses: actions/checkout@v4
+        with:
+          repository: odanado/git-pr-release-go
+          path: git-pr-release-go
+
+      - run: go build -v ./...
+        working-directory: git-pr-release-go
+
+      - run: ./git-pr-release-go --from release/test --to release/test2
+        working-directory: git-pr-release-go
+        env:
+          GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
