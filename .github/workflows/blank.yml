@@ -14,16 +14,19 @@ jobs:
           app-id: ${{ vars.ODAN_SANDBOX_BOT_APP_ID }}
           private-key: ${{ secrets.ODAN_SANDBOX_BOT_PRIVATE_KEY }}
 
-      - name: Checkout tools repo
-        uses: actions/checkout@v4
-        with:
-          repository: odanado/git-pr-release-go
-          path: git-pr-release-go
+      - name: Download git-pr-release-go
+        run: |
+          mkdir -p tmp
+          gh release download --repo odanado/git-pr-release-go --pattern "*Linux_x86_64*" --output - | tar xvf - -C tmp
+          mkdir -p /opt/git-pr-release-go/bin
+          mv tmp/git-pr-release-go /opt/git-pr-release-go/bin
+          rm -rf tmp
 
-      - run: go build -v ./...
-        working-directory: git-pr-release-go
+          echo "/opt/git-pr-release-go/bin" >> $GITHUB_PATH
 
-      - run: ./git-pr-release-go --from main --to release/test
+      - run: git-pr-release-go --help
+
+      - run: git-pr-release-go --from main --to release/test
         working-directory: git-pr-release-go
         env:
           GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
