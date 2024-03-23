@@ -1,8 +1,8 @@
-name: Run tests on staging
+name: Create release pull request
 on:
   push:
     branches:
-      - main
+      - release/test
 
 jobs:
   hello-world:
@@ -23,7 +23,7 @@ jobs:
       - run: go build -v ./...
         working-directory: git-pr-release-go
 
-      - run: ./git-pr-release-go --from main --to release/test
+      - run: ./git-pr-release-go --from release/test --to release/test2
         working-directory: git-pr-release-go
         env:
           GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
