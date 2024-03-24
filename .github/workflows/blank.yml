@@ -20,9 +20,7 @@ jobs:
         with:
           repository: odanado/git-pr-release-go
           arch: x86_64
-          platform: "Linux"
-        env:
-          GH_TOKEN: ${{ github.token }}
+          platform: Linux
 
       - run: git-pr-release-go --help
 
