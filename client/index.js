@@ -5,5 +5,6 @@ const resp = await client.rest.repos.getReleaseByTag({
   owner: "odanado",
   repo: "git-pr-release-go",
   tag: "v0.0.3",
+  platform: "Linux",
 });
 console.log(resp.data);
