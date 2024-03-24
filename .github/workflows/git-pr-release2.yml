@@ -1,4 +1,4 @@
-name: Create Release Pull Request
+name: Create Release Pull Request (release/test3)
 on:
   push:
     branches:
@@ -16,6 +16,8 @@ jobs:
           platform: "Linux"
         env:
           GH_TOKEN: ${{ github.token }}
+
+      - run: git-pr-release-go --help
 
       - run: git-pr-release-go --from main --to release/test3
         working-directory: git-pr-release-go
