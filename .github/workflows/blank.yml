@@ -19,7 +19,6 @@ jobs:
         with:
           repository: odanado/git-pr-release-go
           arch: x86_64
-          tag: v0.0.4
           platform: "Linux"
         env:
           GH_TOKEN: ${{ github.token }}
