@@ -18,6 +18,7 @@ jobs:
         uses: KeisukeYamashita/setup-release@v1.0.2
         with:
           repository: odanado/git-pr-release-go
+          arch: x86_64
         env:
           GH_TOKEN: ${{ github.token }}
 
