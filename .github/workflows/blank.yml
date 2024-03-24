@@ -25,6 +25,6 @@ jobs:
 
       - run: git-pr-release-go --help
 
-      - run: git-pr-release-go --from main --to release/test
+      - run: git-pr-release-go --from main --to release/test --labels release
         env:
           GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
