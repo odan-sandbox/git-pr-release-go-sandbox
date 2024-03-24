@@ -17,7 +17,7 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
 
-      - run: ./git-pr-release-go --from main --to release/test3
+      - run: git-pr-release-go --from main --to release/test3
         working-directory: git-pr-release-go
         env:
           GITHUB_TOKEN: ${{ github.token }}
