@@ -21,6 +21,20 @@ jobs:
 
       - run: git-pr-release-go --help
 
-      - run: git-pr-release-go --from main --to release/test3 --labels release --template git-pr-release.mustache --json
+      - run: git-pr-release-go --from main --to release/test3 --labels release --template git-pr-release.mustache --json > result.json
         env:
           GITHUB_TOKEN: ${{ github.token }}
+
+      - run: echo "result=$(cat result.json) > $GITHUB_OUTPUT"
+        id: result
+
+      - run: echo "${{ fromJson(steps.result.outputs.result) }}"
+
+      - run: echo created
+        if: ${{ fromJson(steps.result.outputs.result).is_created }}
+
+      - run: echo updated
+        if: ${{ !fromJson(steps.result.outputs.result).is_created }}
+
+      - run: echo ${{ fromJson(steps.result.outputs.result).pull_request.number }}
+      - run: echo ${{ fromJson(steps.result.outputs.result).pull_request.url }}
