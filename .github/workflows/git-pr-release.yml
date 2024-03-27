@@ -21,23 +21,20 @@ jobs:
 
       - run: git-pr-release-go --help
 
-      - run: git-pr-release-go --from main --to release/test3 --labels release --template git-pr-release.mustache --json > result.json
+      - run: |
+          git-pr-release-go --from main --to release/test3 --labels release --template git-pr-release.mustache --json > result.json
+          echo "result=$(cat result.json)" >> $GITHUB_OUTPUT
+        id: create-release-pr
         env:
           GITHUB_TOKEN: ${{ github.token }}
 
-      - run: echo "result=$(cat result.json)" >> $GITHUB_OUTPUT
-        id: result
-
-      - run: echo "${{ steps.result.outputs.result }}"
-      - run: echo "${{ toJson(steps.result.outputs.result) }}"
-      - run: echo "${{ fromJson(steps.result.outputs.result) }}"
+      - run: echo "${{ steps.create-release-pr.outputs.result }}"
 
       - run: echo created
-        if: ${{ fromJson(steps.result.outputs.result).is_created }}
+        if: ${{ fromJson(steps.create-release-pr.outputs.result).is_created }}
 
       - run: echo updated
-        if: ${{ !fromJson(steps.result.outputs.result).is_created }}
+        if: ${{ !fromJson(steps.create-release-pr.outputs.result).is_created }}
 
-      - run: echo ${{ fromJson(steps.result.outputs.result).release_pull_request.number }}
-      - run: echo ${{ fromJson(steps.result.outputs.result)['release_pull_request']['number'] }}
-      - run: echo ${{ fromJson(steps.result.outputs.result).release_pull_request.url }}
+      - run: echo ${{ fromJson(steps.create-release-pr.outputs.result).release_pull_request.number }}
+      - run: echo ${{ fromJson(steps.create-release-pr.outputs.result).release_pull_request.url }}
