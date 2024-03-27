@@ -25,7 +25,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ github.token }}
 
-      - run: echo "result=$(cat result.json) >> $GITHUB_OUTPUT"
+      - run: echo "result=$(cat result.json)" >> $GITHUB_OUTPUT
         id: result
 
       - run: echo "${{ toJson(steps.result.outputs.result) }}"
