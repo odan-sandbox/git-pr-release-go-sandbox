@@ -37,5 +37,5 @@ jobs:
       - run: echo updated
         if: ${{ !fromJson(steps.result.outputs.result).is_created }}
 
-      - run: echo ${{ fromJson(steps.result.outputs.result).pull_request.number }}
-      - run: echo ${{ fromJson(steps.result.outputs.result).pull_request.url }}
+      - run: echo ${{ steps.result.outputs.result.pull_request.number }}
+      - run: echo ${{ steps.result.outputs.result.pull_request.url }}
