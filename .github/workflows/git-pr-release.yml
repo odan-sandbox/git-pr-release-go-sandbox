@@ -13,11 +13,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Download git-pr-release-go
-        uses: KeisukeYamashita/setup-release@v1.0.2
+        uses: odanado/setup-release@v0
         with:
           repository: odanado/git-pr-release-go
-          arch: x86_64
-          platform: Linux
 
       - run: git-pr-release-go --help
 
